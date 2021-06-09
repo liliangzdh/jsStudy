@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>原型链</title>
+</head>
+<body>
+
+</body>
+
+
+<script>
+
+
+  function Person() {
+
+  }
+
+
+  Person.prototype.name = "hello";
+
+  console.log(Person.__proto__);
+  console.log(Function.prototype);
+  console.log(Person.__proto__ === Function.prototype);
+
+
+  const  a= 1;
+
+  console.log('>>>',a.prototype);
+
+  console.log('---------------------------')
+  console.log('首先明确一点：每个函数都有prototype属性，并且prototype属性是函数才会有的属性');
+  console.log('---------------------------')
+
+  const p1 = new Person();
+  const p2 = new Person();
+
+  console.log(Person.prototype);
+
+
+  console.log(p1.name,p2.name);
+
+  console.log('---------------------------')
+  console.log('js中的每个对象（除null以外，函数，数组是特殊的对象）都有__proto__属性，该属性指向对象的原型。')
+  console.log('---------------------------')
+
+  console.log(p1.__proto__ === Person.prototype);
+
+
+  console.log(Person === Person.prototype.constructor);
+  console.log(p1.constructor === Person);
+
+
+  p1.name = "lisi";
+
+  console.log(p1.name);
+
+  delete p1.name;
+
+  console.log(p1.name);
+
+  console.log('>>>>______________');
+
+  console.log(Object.prototype);
+  console.log(Object.prototype.__proto__);
+
+</script>
+
+</html>

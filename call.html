@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>call函数</title>
+</head>
+
+<div>
+  call 函数定义
+
+  <br/>
+
+  function call(context,arg,arg1,...)
+</div>
+<body>
+
+<script>
+
+
+
+  function test(c) {
+      console.log('1>>>',this.a,'cccc',c);
+  }
+
+  const obj = {
+      a:'1'
+  }
+
+  test.call(obj,3);
+
+
+  /***
+   * 手写call
+   */
+  Function.prototype.callme= function (context, ...arg) {
+      if(context == null || context ===undefined){
+          context = window;
+      }
+      const key = Symbol();
+      context[key] = this;
+      const res = context[key](...arg);
+      delete context[key];
+      return  res;
+  }
+
+  test.callme(obj,3);
+
+
+</script>
+</body>
+</html>

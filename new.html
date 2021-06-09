@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>手写一个new</title>
+</head>
+<body>
+
+</body>
+
+
+<script>
+    function _new(obj,...rest) {
+        const newObj = Object.create(obj.prototype);
+        const result= obj.apply(newObj,rest);
+        return result === 'object'?result:newObj;
+    }
+
+
+    function _call(context,...rest) {
+        const key = Symbol();
+        context[key] = key;
+        const res = context[key](...rest);
+        delete context[key];
+        return res;
+    }
+
+    function _applay(context,arr) {
+        const key = Symbol();
+        context[key] = key;
+        const res = context[key](...arr);
+        delete context[key];
+        return res;
+    }
+
+    function _bind(context) {
+        const self = this;
+        const fitArg = Array.prototype.slice.call(arguments,1);
+        return function () {
+            const last = Array.prototype.slice.call(arguments)
+            return self.apply(context,fitArg.concat(last));
+        }
+    }
+
+</script>
+</html>

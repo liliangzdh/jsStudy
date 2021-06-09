@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>apply函数</title>
+</head>
+
+<div>
+  apply 函数定义
+
+  <br/>
+
+  function apply(context,[arr])
+</div>
+<body>
+
+<script>
+
+
+
+
+  function test(c) {
+      console.log('1>>>',this.a,'cccc',c);
+  }
+
+  const obj = {
+      a:'1'
+  }
+
+  test.apply(obj,[3]);
+
+
+  /***
+   * 手写call
+   */
+  Function.prototype.applyme= function (context, arr) {
+      if(context == null || context ===undefined){
+          context = window;
+      }
+      const key = Symbol();
+      context[key] = this;
+      const res = context[key](...arr);
+      delete context[key];
+      return  res;
+  }
+
+  test.applyme(obj,[3]);
+
+
+</script>
+</body>
+</html>
