@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+
+  function _new(obj,...rest) {
+      const newObj = Object.create(obj.prototype);
+      const result = obj.apply(rest);
+      return newObj === 'object'?result:newObj;
+  }
+
+
+  function _call(context,...arg) {
+      const key  = Symbol();
+      context[key] = this;
+      const result = context[key](...arg);
+      delete context[key];
+      return result;
+  }
+
+  function _apply(context,arr) {
+      const key = Symbol();
+      context[key] = this;
+      const result = context[key](...arr);
+      delete context[key];
+      return result;
+  }
+
+  function _bind(context) {
+      const self = this;
+      const fir = Array.prototype.slice.call(arguments,1);
+      return function () {
+          const last = Array.prototype.slice.call(arguments);
+          return self.apply(context,fir.concat(last));
+      }
+  }
+
+
+  function __new(obj,...rest) {
+      const newObj = Object.create(obj.prototype);
+      const result = obj.apply(rest);
+      return result === 'object'?result:newObj;
+  }
+</script>
+</html>
