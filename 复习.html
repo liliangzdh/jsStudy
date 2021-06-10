@@ -10,14 +10,6 @@
 
 <script>
 
-
-  function _new(obj,...rest) {
-      const newObj = Object.create(obj.prototype);
-      const result = obj.apply(rest);
-      return newObj === 'object'?result:newObj;
-  }
-
-
   function _call(context,...arg) {
       const key  = Symbol();
       context[key] = this;
@@ -44,10 +36,39 @@
   }
 
 
-  function __new(obj,...rest) {
-      const newObj = Object.create(obj.prototype);
-      const result = obj.apply(rest);
+  function __new(fn,...rest) {
+      const newObj = Object.create(fn.prototype);
+      const result = fn.apply(newObj,rest);
+      return result instanceof Object ?result:newObj;
+  }
+
+
+  function Person(name) {
+      this.name = name;
+  }
+
+  console.log(new Person('12'));
+
+
+  console.log('>>>>>>>>>>>');
+
+  console.log(__new(Person,'13'));
+
+
+  function new2(obj,...rest) {
+
+      console.log('-------------')
+      console.log(obj.prototype);
+      console.log('-------------')
+
+     const newObj =  Object.create(obj.prototype);
+
+      console.log(newObj);
+     const result = obj.apply(newObj,rest);
+      console.log(result);
       return result === 'object'?result:newObj;
   }
+
+  console.log(new2(Person,'13'));
 </script>
 </html>
