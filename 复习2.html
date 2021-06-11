@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+
+
+<script>
+
+    function _new(fn, ...rest) {
+        const newObj = Object.create(fn.prototype);
+        const result = fn.apply(newObj, rest);
+        return result instanceof Object ? result : newObj;
+    }
+
+
+    function _bind(context) {
+
+        const self = this;
+
+        const fir = Array.prototype.slice.call(arguments, 1);
+
+        return function () {
+            const last = Array.prototype.slice.call(arguments);
+            return self.apply(context, fir.concat(last));
+        }
+    }
+
+
+    function _call(context, ...arg) {
+        const key = Symbol();
+        context[key] = this;
+        const result = context[key](...arg);
+        delete context[key];
+        return result;
+    }
+
+    function _apply(context, arr) {
+        const key = Symbol();
+        context[key] = this;
+        const result = context[key](...arr);
+        delete context[key];
+        return result;
+    }
+
+    function Person(name) {
+        this.name = name;
+    }
+
+    console.log(_new(Person, 'lisi'));
+
+
+    function test(a) {
+        console.log(this.name,a);
+    }
+
+    const obj = {
+        name: 'lisi'
+    }
+
+    Function.prototype._bind = _bind;
+    Function.prototype._apply = _apply;
+    Function.prototype._call = _call;
+
+    test._bind(obj)(1);
+    test._apply(obj,[1,2,3]);
+    test._call(obj,1,2,3);
+
+    test.bind(obj)(1);
+    test.apply(obj,[1,2,3]);
+    test.call(obj,1,2,3);
+</script>
+</html>
