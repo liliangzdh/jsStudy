@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+body h1 {
+  color: red;
+}
+
+h2 {
+  color: blue;
+}
+
+h3 {
+  border: 1px solid blue;
+}
+
+.parent {
+  color: red;
+}
+.parent .child {
+  color: blueviolet;
+  font-size: 90px;
+  font-weight: 700;
+  border: 1px solid red;
+  border-left: 10px;
+  border-top: 10px;
+}
+.parent .child:hover {
+  background-color: royalblue;
+}
+
+.hunhe {
+  color: red;
+  font-size: 30px;
+}
+
+.min {
+  color: red;
+  font-size: 15px;
+}
+
+.min2 {
+  color: blue;
+  font-size: 20px;
+}
+
+.one, .two {
+  color: red;
+}
+
+.one a, .two a {
+  font-size: 40px;
+}
+
+.two {
+  background-color: white;
+}
+
+.cpu {
+  left: 40px;
+  margin: 20px;
+  background-color: red;
+}
+
+.inter {
+  color: red;
+}
+
+.if {
+  background-color: red;
+}
+.if else {
+  background-color: royalblue;
+}
+
+/*# sourceMappingURL=output.css.map */

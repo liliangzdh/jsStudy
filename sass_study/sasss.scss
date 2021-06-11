@@ -1,0 +1,121 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  h1 {
+    color: red;
+  }
+}
+
+// 1. 定义变量
+
+$yanse: blue;
+
+h2 {
+  color: $yanse;
+}
+
+$kuang: 1px solid $yanse;
+
+h3 {
+  border: $kuang;
+}
+
+//2. 嵌套
+.parent {
+  color: red;
+  .child {
+    color: blueviolet;
+
+    &:hover {
+      background-color: royalblue;
+    }
+
+    font: {
+      size: 90px;
+      weight: 700;
+    }
+  ;
+
+    border: 1px solid red {
+      left: 10px;
+      top: 10px;
+    }
+  ;
+
+  }
+}
+
+//3 混入 （ minix ，include）
+@mixin hunhe {
+  color: red;
+  font-size: 30px;
+}
+
+.hunhe {
+  @include hunhe;
+}
+
+// 4. minix 接收参数。
+
+@mixin mix($one,$two) {
+  color: $one;
+  font-size: $two;
+}
+
+.min {
+  @include mix(red, 15px)
+}
+
+.min2 {
+  @include mix($two: 20px, $one: blue)
+}
+
+// 5. 继承
+
+.one {
+  color: red
+}
+
+.one a {
+  font-size: 40px;
+}
+
+.two {
+  @extend .one;
+  background-color: white;
+}
+
+// 6 计算功能
+
+$chang: 20px;
+
+.cpu {
+  left: 20px+ 20px;
+  margin: 10px * 2;
+  background-color: red;
+}
+
+// 7 interpolation 把一个值插入 另一个值，具体用法：#{变量}
+
+$key: color;
+
+.inter {
+  #{$key}: red;
+}
+
+// if 判断条件
+
+$flag: fase;
+
+.if {
+  @if (flag) {
+    background-color: red;
+  }
+  else {
+    background-color: royalblue;
+  }
+}
+
+
+
