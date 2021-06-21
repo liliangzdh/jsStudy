@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>手写 promise race</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+
+    const p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('11');
+        }, 1000)
+    })
+
+    const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('12');
+        }, 1500)
+    })
+
+    const p3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('13');
+        }, 500)
+    })
+
+    // Promise.race([p1,p2,p3]).then(res=>{
+    //     console.log(333,res);
+    // }).catch(err=>{
+    //     console.log('ee',err);
+    // })
+
+    obj = {
+        0:'11',1:'12',2:'13',length:3
+    }
+
+    console.log(Array.from(obj));
+
+
+    Promise.myRace = function (arr) {
+        return new Promise((resolve, reject) => {
+            for (let bean of arr) {
+                // 考虑到bean 可能是普通对象，则统一包装为Promise对象
+                Promise.resolve(bean).then(res => {
+                    console.log('>>>',res);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
+            }
+        });
+    }
+
+    Promise.myRace([p1,p2,p3]).then(res=>{
+        console.log(333,res);
+    }).catch(err=>{
+        console.log('ee',err);
+    })
+
+
+</script>
+
+</html>
