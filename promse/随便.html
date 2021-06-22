@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form action="" class="example-form">
+  <div>
+    <label for="name">
+      名称
+    </label>
+    <input class="input-ele" type="text" name="name" id="name" placeholder="please input your name"
+           autocomplete="off">
+  </div>
+  <div style="margin-top:50px;">
+    <label for="res">
+      输入
+    </label>
+    <textarea class="input-ele" type="multipart" name="res" id="res" readonly style="min-height: 200px"
+              placeholder="这里是每一次输入的结果"></textarea>
+  </div>
+</form>
+
+<script>
+    window.onload = function () {
+        const resEle = document.querySelector("#res");
+        function changeOutputVal() {
+            resEle.value += `\n${ this.value }`;
+        }
+        function throttle(fun, delay) {
+            let last, deferTimer;
+            return function () {
+                let now = Date.now();
+                if (last && now < last + delay) {
+                    clearTimeout(deferTimer);
+                    deferTimer = setTimeout(() =>{
+                        last = now;
+                        fun.apply(this);
+                    }, delay)
+                } else {
+                    last = now;
+                    fun.apply(this);
+                }
+            }
+        }
+        const inputEle = document.querySelector("#name");
+        inputEle.addEventListener("input", throttle(changeOutputVal, 1000));
+    }
+</script>
+
+</body>
+</html>
